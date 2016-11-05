@@ -22,7 +22,7 @@ namespace :book do
   task :build_html => :prebuild do
     puts "Converting to HTML..."
     `bundle exec asciidoctor QGIS_book.asc -o QGIS_book.html`
-    puts " -- HTML output at My_book.html"
+    puts " -- HTML output at QGIS_book.html"
   end 
   
   desc 'build html with github stylesheet'
