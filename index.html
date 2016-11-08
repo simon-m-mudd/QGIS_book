@@ -445,26 +445,30 @@ MathJax.Hub.Config({
 <ul class="sectlevel2">
 <li><a href="#_adding_raster_data">2.1. Adding raster data</a></li>
 <li><a href="#_adding_vector_data">2.2. Adding vector data</a></li>
+<li><a href="#_import_point_data_from_text_or_spreadsheet">2.3. Import point data from text or spreadsheet</a>
+<ul class="sectlevel3">
+<li><a href="#_preparing_your_text_data_or_spreadsheet">2.3.1. Preparing your text data or spreadsheet</a></li>
+<li><a href="#_geographic_coordinates">2.3.2. Geographic coordinates</a></li>
+<li><a href="#_projected_coordinates">2.3.3. Projected coordinates</a></li>
+<li><a href="#_preparing_the_actual_data_in_a_spreadsheet">2.3.4. Preparing the actual data in a spreadsheet</a></li>
+<li><a href="#_preparing_the_actual_data_in_a_comma_separated_value_csv_file">2.3.5. Preparing the actual data in a comma separated value (csv) file</a></li>
+<li><a href="#_a_special_case_gps_coordinates_and_the_british_national_grid">2.3.6. A special case: GPS coordinates and the British National Grid</a></li>
 </ul>
 </li>
-<li><a href="#_import_point_data_from_text_or_spreadsheet">3. Import point data from text or spreadsheet</a>
+<li><a href="#_importing_the_data_into_qgis">2.4. Importing the data into QGIS</a>
+<ul class="sectlevel3">
+<li><a href="#_selecting_the_coordinate_system">2.4.1. Selecting the coordinate system</a></li>
+</ul>
+</li>
+<li><a href="#_saving_your_imported_data">2.5. Saving your imported data</a></li>
+<li><a href="#_summary">2.6. Summary</a></li>
+</ul>
+</li>
+<li><a href="#_manipulating_vector_data">3. Manipulating vector data</a>
 <ul class="sectlevel2">
-<li><a href="#_preparing_your_text_data_or_spreadsheet">3.1. Preparing your text data or spreadsheet</a>
-<ul class="sectlevel3">
-<li><a href="#_geographic_coordinates">3.1.1. Geographic coordinates</a></li>
-<li><a href="#_projected_coordinates">3.1.2. Projected coordinates</a></li>
-<li><a href="#_preparing_the_actual_data_in_a_spreadsheet">3.1.3. Preparing the actual data in a spreadsheet</a></li>
-<li><a href="#_preparing_the_actual_data_in_a_comma_separated_value_csv_file">3.1.4. Preparing the actual data in a comma separated value (csv) file</a></li>
-<li><a href="#_a_special_case_gps_coordinates_and_the_british_national_grid">3.1.5. A special case: GPS coordinates and the British National Grid</a></li>
-</ul>
-</li>
-<li><a href="#_importing_the_data_into_qgis">3.2. Importing the data into QGIS</a>
-<ul class="sectlevel3">
-<li><a href="#_selecting_the_coordinate_system">3.2.1. Selecting the coordinate system</a></li>
-</ul>
-</li>
-<li><a href="#_saving_your_imported_data">3.3. Saving your imported data</a></li>
-<li><a href="#_summary">3.4. Summary</a></li>
+<li><a href="#_adjusting_point_locations">3.1. Adjusting point locations</a></li>
+<li><a href="#_extracting_data_from_a_raster_onto_points">3.2. Extracting data from a raster onto points</a></li>
+<li><a href="#_summary_2">3.3. Summary</a></li>
 </ul>
 </li>
 <li><a href="#_projections_and_transformations">Appendix A: Projections and transformations</a>
@@ -543,7 +547,7 @@ MathJax.Hub.Config({
 <div class="title">Figure 2. Right click to select panels</div>
 </div>
 <div class="paragraph">
-<p>If you accidently remove a panel you can get it back by right clicking near the top of the page and reselecting the panel.</p>
+<p>If you accidentally remove a panel you can get it back by right clicking near the top of the page and reselecting the panel.</p>
 </div>
 <div class="paragraph">
 <p>The <strong>layers</strong> panel shows you what data you currently have loaded into QGIS (see bottom left in above images: there is one layer loaded called <strong>WAWater</strong>).</p>
@@ -637,7 +641,7 @@ In the above image I have moved the toolbar to display horizontally; any of thes
 <p><strong>IF</strong> the raster layer has information about its <a href="https://en.wikipedia.org/wiki/Map_projection">projection</a>, then the layer will just pop up in both your <strong>layer panel</strong> and your <strong>map canvas</strong>.</p>
 </div>
 <div class="paragraph">
-<p>If the raster layer doesn&#8217;t have this information you will need to assign a projection. If you don&#8217;t know what the projection is, I am afraid I cannot help you: it is your data! If you do know what the projection should be, probably the best way to search for it is by finding its EPSG number using a search engine and then enter that in the projection search there should be a <strong>filter</strong> box.</p>
+<p>If the raster layer doesn&#8217;t have this information you will need to assign a projection. If you don&#8217;t know what the projection is, I am afraid I cannot help you: it is your data! If you do know what the projection should be, probably the best way to search for it is by finding its EPSG number using a search engine and then enter that in the projection search (you should see a <strong>filter</strong> box).</p>
 </div>
 </div>
 <div class="sect2">
@@ -655,16 +659,13 @@ In the above image I have moved the toolbar to display horizontally; any of thes
 <div class="title">Figure 6. Adding vector data</div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_import_point_data_from_text_or_spreadsheet">3. Import point data from text or spreadsheet</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_import_point_data_from_text_or_spreadsheet">2.3. Import point data from text or spreadsheet</h3>
 <div class="paragraph">
 <p>In many situations you might collect data in the field using a GPS, or get data from some other software (e.g., <a href="https://lsdtopotools.github.io/">LSDTopoTools</a>) that is not in a standard vector format. As long as the data has some spatial coordinates, you should be able to import it into QGIS. QGIS can read various formats but you will help yourself if you prepare your data in a common data format. Here we will describe importing data from either a spreadsheet (e.g., an <strong>.xlsx</strong> file) or a comma separated value file (<strong>.csv</strong>). One difference between ArcMap and QGIS is that ArcMap can import Excel files directly whereas in QGIS you need to convert to csv.</p>
 </div>
-<div class="sect2">
-<h3 id="_preparing_your_text_data_or_spreadsheet">3.1. Preparing your text data or spreadsheet</h3>
+<div class="sect3">
+<h4 id="_preparing_your_text_data_or_spreadsheet">2.3.1. Preparing your text data or spreadsheet</h4>
 <div class="paragraph">
 <p>These instructions refer to point data. Making polygons and lines requires information about how points are connected so we will not discuss that at this stage. For point data the key thing is to know where the points are! In the most common case one has collected data using a GPS, and written them down somewhere. We need to get these data into QGIS.</p>
 </div>
@@ -683,8 +684,9 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 </tr>
 </table>
 </div>
+</div>
 <div class="sect3">
-<h4 id="_geographic_coordinates">3.1.1. Geographic coordinates</h4>
+<h4 id="_geographic_coordinates">2.3.2. Geographic coordinates</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -707,7 +709,7 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_projected_coordinates">3.1.2. Projected coordinates</h4>
+<h4 id="_projected_coordinates">2.3.3. Projected coordinates</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -718,7 +720,7 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 <p><strong>Easting</strong> is the <strong>X Field</strong></p>
 </li>
 <li>
-<p><strong>Northing is the *Y Field</strong></p>
+<p><strong>Northing</strong> is the <strong>Y Field</strong></p>
 </li>
 </ul>
 </div>
@@ -727,7 +729,7 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_preparing_the_actual_data_in_a_spreadsheet">3.1.3. Preparing the actual data in a spreadsheet</h4>
+<h4 id="_preparing_the_actual_data_in_a_spreadsheet">2.3.4. Preparing the actual data in a spreadsheet</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -764,7 +766,7 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_preparing_the_actual_data_in_a_comma_separated_value_csv_file">3.1.4. Preparing the actual data in a comma separated value (csv) file</h4>
+<h4 id="_preparing_the_actual_data_in_a_comma_separated_value_csv_file">2.3.5. Preparing the actual data in a comma separated value (csv) file</h4>
 <div class="paragraph">
 <p>A comma separated value file (csv) is just a text file that has values separated by commas. It does what it says on the tin. You can save any Excel worksheet as a <code>csv</code> file (see above). The advantage of <code>csv</code> files is that you don&#8217;t need Excel to read the data: you can read it with any text editor. However <code>csv</code> files only contain the values: you can&#8217;t save graphs or formatting. If you want separate worksheets you need to save them as separate files. The second example above in csv format look like this:</p>
 </div>
@@ -778,7 +780,7 @@ If you are using a GPS you need to know what in which coordinate system the GPS 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_a_special_case_gps_coordinates_and_the_british_national_grid">3.1.5. A special case: GPS coordinates and the British National Grid</h4>
+<h4 id="_a_special_case_gps_coordinates_and_the_british_national_grid">2.3.6. A special case: GPS coordinates and the British National Grid</h4>
 <div class="paragraph">
 <p>The <a href="https://www.ordnancesurvey.co.uk/support/the-national-grid.html">British National Grid</a> has a system of referencing that mixes letters and numbers, following the long British tradition of conceiving systems that are inscrutable to outsiders.</p>
 </div>
@@ -793,7 +795,7 @@ QGIS and other GIS systems only want numbers. How do we turn these letters into 
 <div class="content">
 <img src="images/os-grid.jpg" alt="The OS grid">
 </div>
-<div class="title">Figure 10. Ordinance survey grid</div>
+<div class="title">Figure 10. Ordnance survey grid</div>
 </div>
 <div class="paragraph">
 <p>You need to add a digit to the front of your coordinates based on the letters. Each row and column represents a digit, and these are counted from the bottom left corner. The first row and column begin with digit 0, then next 1, and so on. The coordinate <strong>NT</strong> is in the 4th column and 7th row, but the first row and column are zero, so you put a 3 and 6 in front of the coordinates:</p>
@@ -804,7 +806,7 @@ QGIS and other GIS systems only want numbers. How do we turn these letters into 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_importing_the_data_into_qgis">3.2. Importing the data into QGIS</h3>
+<h3 id="_importing_the_data_into_qgis">2.4. Importing the data into QGIS</h3>
 <div class="paragraph">
 <p>One you have organised your data, you can import it using the menus:</p>
 </div>
@@ -863,7 +865,7 @@ Another gotcha is that when loading a csv file you must select <strong>csv file 
 <p>Okay, nearly there!! Once you hit okay, you will need to select the coordinate system.</p>
 </div>
 <div class="sect3">
-<h4 id="_selecting_the_coordinate_system">3.2.1. Selecting the coordinate system</h4>
+<h4 id="_selecting_the_coordinate_system">2.4.1. Selecting the coordinate system</h4>
 <div class="paragraph">
 <p>This deserves its own header since it is so important. If you don&#8217;t choose the correct coordinate system, your data will be in the wrong place!! This is what the dialog looks like:</p>
 </div>
@@ -879,7 +881,7 @@ Another gotcha is that when loading a csv file you must select <strong>csv file 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_saving_your_imported_data">3.3. Saving your imported data</h3>
+<h3 id="_saving_your_imported_data">2.5. Saving your imported data</h3>
 <div class="paragraph">
 <p>You can keep your data in csv format, but if you do that, you will need to import it each time you want to look at it. It is probably better to save it in a vector file format. Find the layer in the layers panel (in this example I have a layer called "Channel_width"), and right click on it. Then choose "save as":</p>
 </div>
@@ -899,7 +901,7 @@ Another gotcha is that when loading a csv file you must select <strong>csv file 
 <div class="title">Figure 16. The dialog box for saving in vector format</div>
 </div>
 <div class="paragraph">
-<p>The <a href="https://en.wikipedia.org/wiki/Shapefile">ESRI shapefile</a> format is the default. This format can be red by a number of different software packages and is a safe choice. The drawback is that it generates many different files. Another option is the <a href="http://geojson.org/">GeoJSON</a> format, which is frequently used in web mapping applications. We recommend using one of these two formats.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Shapefile">ESRI shapefile</a> format is the default. This format can be read by a number of different software packages and is a safe choice. The drawback is that it generates many different files. Another option is the <a href="http://geojson.org/">GeoJSON</a> format, which is frequently used in web mapping applications. We recommend using one of these two formats.</p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -908,7 +910,7 @@ Another gotcha is that when loading a csv file you must select <strong>csv file 
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-QGIS is a bit picky about the file names when you save the file; you shoul use the "browse" dialog and name the file there rather than just typing a name.
+QGIS is a bit picky about the file names when you save the file; you should use the "browse" dialog and name the file there rather than just typing a name.
 </td>
 </tr>
 </table>
@@ -920,7 +922,7 @@ QGIS is a bit picky about the file names when you save the file; you shoul use t
 <div class="content">
 <img src="images/new_layer.jpg" alt="New layer">
 </div>
-<div class="title">Figure 17. You brand new vector data as a layer</div>
+<div class="title">Figure 17. Your brand new vector data as a layer</div>
 </div>
 <div class="paragraph">
 <p>You can now right click on the old layer (which is just csv data) and remove it. Note if you just want to zoom in on just your imported data, you can right click on the layer and select "zoom to layer":</p>
@@ -933,8 +935,163 @@ QGIS is a bit picky about the file names when you save the file; you shoul use t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_summary">3.4. Summary</h3>
+<h3 id="_summary">2.6. Summary</h3>
 
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_manipulating_vector_data">3. Manipulating vector data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Occasionaly you will need to adjust vector data, or add data cateogries to your data based on other datasets.</p>
+</div>
+<div class="sect2">
+<h3 id="_adjusting_point_locations">3.1. Adjusting point locations</h3>
+<div class="paragraph">
+<p>Handheld <a href="https://en.wikipedia.org/wiki/Global_Positioning_System">GPS</a> units are often used in the field to determine location of sampling points. The accuracy of GPS measurements varies, and if you are working with a relatively high resolution <a href="https://en.wikipedia.org/wiki/Digital_elevation_model">DEM</a> (e.g., 5 m resolution or better).</p>
+</div>
+<div class="paragraph">
+<p>In this example we will look at some point data that was collected in a channel. We have extracted drainage area (using <a href="https://lsdtopotools.github.io/LSDTopoTools_workshop/">LSDTopoTools</a>), in the image below the channels are those with high drainage area and have purple colours:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Points_over_draiage_area.jpg" alt="Points over drainage area">
+</div>
+<div class="title">Figure 19. Point data aver drainage area</div>
+</div>
+<div class="paragraph">
+<p>In this image, you can see that the channel point locations are not all on the channel. THis is beacuse the DEM has a pixel size of 5 metres and the error on the GPS unit is greater than 5 metres. Also, in some cases the channel routing algorithms, combined with a noisy DEM, route the channels to the wrong place. In addition, one of these points seems spurious (the one anomolously to the East), so we might remove it from the dataset.</p>
+</div>
+<div class="paragraph">
+<p>To edit the points, right click on the layer (not the csv file but a vector layer you created in <a href="#_saving_your_imported_data">previous steps</a>) and select "toggle editing":</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Toggle_editing.jpg" alt="Toggle editing">
+</div>
+<div class="title">Figure 20. Enable editing of vector data</div>
+</div>
+<div class="paragraph">
+<p>Once you do this the editing toolbar will become active:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Editing_toolbar.jpg" alt="Editing toolbar">
+</div>
+<div class="title">Figure 21. The editing toolbar</div>
+</div>
+<div class="paragraph">
+<p>You can then select the "node tool" to move nodes to the channel. You can also delete nodes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Node_tool.jpg" alt="Node tool">
+</div>
+<div class="title">Figure 22. The node tool</div>
+</div>
+<div class="paragraph">
+<p>You can either save or roll back edits (if you are unhappy with your work) by clicking on the icon with several pencils:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Save_editing.jpg" alt="Save editing">
+</div>
+<div class="title">Figure 23. Saving or rolling back changes</div>
+</div>
+<div class="paragraph">
+<p>Once you are finished editing make sure you turn the editing back off using the "toggle editing" button.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extracting_data_from_a_raster_onto_points">3.2. Extracting data from a raster onto points</h3>
+<div class="paragraph">
+<p>Another common operation is to extract raster data onto points. There is a handy tutorial about this already: <a href="http://www.qgistutorials.com/en/docs/sampling_raster_data.html" class="bare">http://www.qgistutorials.com/en/docs/sampling_raster_data.html</a>, but we are going to use the previous dataset here.</p>
+</div>
+<div class="paragraph">
+<p>First, you need to click on the <strong>plugins</strong> menu bar and select "manage and install plugins":</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Plugins_browser.jpg" alt="Plugins browser">
+</div>
+<div class="title">Figure 24. Opening the plugins browser</div>
+</div>
+<div class="paragraph">
+<p>Search for "point sampling tool" and install:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Get_point_sampling.jpg" alt="Get the point sampling tool">
+</div>
+<div class="title">Figure 25. Get the point sampling tool</div>
+</div>
+<div class="paragraph">
+<p>Once you do that, the "point sampling tool" can be found under the plugins menu:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Point_sampling.jpg" alt="Plugins browser">
+</div>
+<div class="title">Figure 26. Selecting the point sampling tool</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Important notes about the point sampling tool</div>
+<div class="paragraph">
+<p>I have some bad news: the point sampling tool is very picky about the data you can use. Here are some gotchas:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you edited your vector file and deleted a point, it turns out that point is stull there, but has a "NULL" data entry. The extract point tool does not like this one bit. It is very hard to get rid of these points in a shapefile. In a geojson file, you can open the file, delete the point with "null" in the line, and save the file.</p>
+</li>
+<li>
+<p>All of the layers need to be in the same projection. Because raster layers take up a lot of space you should check on your raster&#8217;s projection and then save your vector data in that same projection. Right click on the layer, select "save as" and then on the CRS button select the same projection as your raster.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Select the layer from which to extract data, and use the "browse" button to save the file. In addition, I recommend keeping all of the data in the original vector file:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Extracting_data_by_points.jpg" alt="Extracting data by points">
+</div>
+<div class="title">Figure 27. Extracting the data using the point sampling tool</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The point extraction tool can only save files as ESRI shapefiles.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can then right click on the new layer, view the attribute table and copy the data into a clipboard:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Copy_data_to_clipboard.jpg" alt="Copy to clipboard">
+</div>
+<div class="title">Figure 28. Copy the data to clipboard</div>
+</div>
+<div class="paragraph">
+<p>This can then be pasted into a spreadsheet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_2">3.3. Summary</h3>
+<div class="paragraph">
+<p>In this chapter we have learned how to edit vector data, and extract underlying raster data using vector data.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1012,7 +1169,7 @@ QGIS is a bit picky about the file names when you save the file; you shoul use t
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-05 08:30:32 GMT Standard Time
+Last updated 2016-11-08 12:47:57 GMT Standard Time
 </div>
 </div>
 </body>
