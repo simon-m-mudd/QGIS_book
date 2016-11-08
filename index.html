@@ -453,6 +453,7 @@ MathJax.Hub.Config({
 <li><a href="#_preparing_the_actual_data_in_a_spreadsheet">2.3.4. Preparing the actual data in a spreadsheet</a></li>
 <li><a href="#_preparing_the_actual_data_in_a_comma_separated_value_csv_file">2.3.5. Preparing the actual data in a comma separated value (csv) file</a></li>
 <li><a href="#_a_special_case_gps_coordinates_and_the_british_national_grid">2.3.6. A special case: GPS coordinates and the British National Grid</a></li>
+<li><a href="#_another_special_case_csv_data_from_lsdtopotools">2.3.7. Another special case: csv data from LSDTopoTools</a></li>
 </ul>
 </li>
 <li><a href="#_importing_the_data_into_qgis">2.4. Importing the data into QGIS</a>
@@ -468,7 +469,8 @@ MathJax.Hub.Config({
 <ul class="sectlevel2">
 <li><a href="#_adjusting_point_locations">3.1. Adjusting point locations</a></li>
 <li><a href="#_extracting_data_from_a_raster_onto_points">3.2. Extracting data from a raster onto points</a></li>
-<li><a href="#_summary_2">3.3. Summary</a></li>
+<li><a href="#_selecting_specific_points">3.3. Selecting specific points</a></li>
+<li><a href="#_summary_2">3.4. Summary</a></li>
 </ul>
 </li>
 <li><a href="#_projections_and_transformations">Appendix A: Projections and transformations</a>
@@ -804,6 +806,12 @@ QGIS and other GIS systems only want numbers. How do we turn these letters into 
 <p><strong>NT 51422 13172</strong> &#8594; <strong>351422, 613172</strong></p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_another_special_case_csv_data_from_lsdtopotools">2.3.7. Another special case: csv data from LSDTopoTools</h4>
+<div class="paragraph">
+<p><a href="http://lsdtopotools.github.io/">LSDTopoTools</a> is a software package developed at the University of Edinburgh School of GeoScience for topographic analysis (if you want to use it, <a href="https://lsdtopotools.github.io/LSDTopoTools_workshop/">start here</a>). A number of its analysis routines create csv data. These data contain latitude and longitude coordiantes: these coordinates are <strong>in a WGS84 projection, <a href="http://spatialreference.org/ref/epsg/wgs-84/">EPSG:4326</a></strong>. When you import csv data from <a href="http://lsdtopotools.github.io/">LSDTopoTools</a> make sure your projections is <strong>EPSG:4326</strong>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_importing_the_data_into_qgis">2.4. Importing the data into QGIS</h3>
@@ -1088,7 +1096,74 @@ The point extraction tool can only save files as ESRI shapefiles.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_summary_2">3.3. Summary</h3>
+<h3 id="_selecting_specific_points">3.3. Selecting specific points</h3>
+<div class="paragraph">
+<p>In this example we will load some data from csv and then select a subset of these points.</p>
+</div>
+<div class="paragraph">
+<p>The data we will load comes from a <a href="http://onlinelibrary.wiley.com/doi/10.1002/2013JF002981/full">chi analysis</a> of a small Scottish catchement using <a href="https://lsdtopotools.github.io/LSDTopoTools_workshop/#_running_a_chi_analysis">LSDTopoTools</a>. Note, chi is a Greek letter pronounced "kai".</p>
+</div>
+<div class="paragraph">
+<p>First, we <a href="#_importing_the_data_into_qgis">import the csv data</a>. You should get something that looks a bit like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/chi_network.jpg" alt="Chi network">
+</div>
+<div class="title">Figure 29. A chi network derived from LSDTopoTools</div>
+</div>
+<div class="paragraph">
+<p>Now, suppose we only want a subset of these data. How do we extract them?</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, select the "select features by freehand" icon on the <strong>attributes toolbar</strong> (if this toolbar is missing, right click near the top of the QGIS window and activate it):</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Select_features_freehand.jpg" alt="Select features freehand">
+</div>
+<div class="title">Figure 30. Select features by freehand</div>
+</div>
+</li>
+<li>
+<p>Then, select the points you want:</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Selecting.jpg" alt="Select points you want">
+</div>
+<div class="title">Figure 31. Select the points you want</div>
+</div>
+</li>
+<li>
+<p>Right click on the layer, and then choose "save as". On the "save as" menu, make sure you select the option to "Save only selected features". In this case I am exporting a shapefile since I want access to the underlying data.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Save_as_selected.jpg" alt="Save selected features as shapefile">
+</div>
+<div class="title">Figure 32. Saving the selected features as a shapefile</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also save as a csv file to just get the selected values. If you only want to plot, say, a river profile of selected points this can come in handy.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Great! Now you can make new files that include just a subset of your initial data.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_2">3.4. Summary</h3>
 <div class="paragraph">
 <p>In this chapter we have learned how to edit vector data, and extract underlying raster data using vector data.</p>
 </div>
