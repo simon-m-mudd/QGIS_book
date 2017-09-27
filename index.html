@@ -473,6 +473,19 @@ MathJax.Hub.Config({
 <li><a href="#_summary_2">3.4. Summary</a></li>
 </ul>
 </li>
+<li><a href="#_an_example_using_data_from_lsdtopotools">4. An example using data from LSDTopoTools</a>
+<ul class="sectlevel2">
+<li><a href="#_getting_the_data_in_linux">4.1. Getting the data in linux</a></li>
+<li><a href="#_a_first_basic_analysis">4.2. A first basic analysis</a>
+<ul class="sectlevel3">
+<li><a href="#_the_driver_file_for_the_first_analysis">4.2.1. The driver file for the first analysis</a></li>
+</ul>
+</li>
+<li><a href="#_getting_the_data_in_linux_2">4.3. Getting the data in linux</a></li>
+<li><a href="#_getting_the_data_in_linux_3">4.4. Getting the data in linux</a></li>
+<li><a href="#_summary_3">4.5. Summary</a></li>
+</ul>
+</li>
 <li><a href="#_projections_and_transformations">Appendix A: Projections and transformations</a>
 <ul class="sectlevel2">
 <li><a href="#_what_are_coordinate_systems">A.1. What are coordinate systems?</a></li>
@@ -1171,6 +1184,353 @@ You can also save as a csv file to just get the selected values. If you only wan
 </div>
 </div>
 <div class="sect1">
+<h2 id="_an_example_using_data_from_lsdtopotools">4. An example using data from LSDTopoTools</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter gives and example of computing some basic rasters and csv data from <a href="http://lsdtopotools.github.io/">LSDTopoTools</a> and then importing it into QGIS. We use this examples of one the the practial excercises in the <a href="http://www.ed.ac.uk/geosciences">University of Edinburgh</a> course, <a href="http://www.drps.ed.ac.uk/17-18/dpt/cxgegr10094.htm">Eroding Landscapes</a>.</p>
+</div>
+<div class="paragraph">
+<p>One of the objectives of this exercise is to get you familiar with moving between a linux environment and QGIS,</p>
+</div>
+<div class="sect2">
+<h3 id="_getting_the_data_in_linux">4.1. Getting the data in linux</h3>
+<div class="paragraph">
+<p>The data for this excercise <a href="https://github.com/LSDtopotools/LSDTT_workshop_data">lives online</a> and you could download it by clicking on it. But we are going to get the data from command line in a linux environment as a gentle introduction.</p>
+</div>
+<div class="paragraph">
+<p>These instructions have been designed for students at the Unviversity of Edinburgh but if you want to try them outside of the Edinburgh computing environment you should <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">read our instructions about how to set up a linux environment on your home computer, regardless of its operating system</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The first thing you need to do is log into a linux server.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>At Edinburgh, the computer labs should all have <a href="http://www.ed.ac.uk/geosciences/intranet/it/linux-servers/nx">nx</a> installed. Use it to log into the GeoScience servers.</p>
+</li>
+<li>
+<p>Outside Edinburgh, you use <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty.exe</a> (windows) or ssh (MacOS or Linux) to get into a <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">vagrant LSDTopoTools box</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you are at Edinburgh, you need to make a terminal window in the <strong>nx</strong> desktop. All you do is <strong>right-click</strong> and select <strong>open terminal window</strong>.</p>
+</li>
+<li>
+<p>To see where you are, type <code>pwd</code> in the command line:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ pwd</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">A very brief overview of linux commands</div>
+<div class="paragraph">
+<p><code>pwd</code>  &#8201;&#8212;&#8201;Tells you what directory you are currently in.</p>
+</div>
+<div class="paragraph">
+<p><code>cd</code>   &#8201;&#8212;&#8201;change directory. You need to give it the directory name.</p>
+</div>
+<div class="paragraph">
+<p><code>cd ..</code>&#8201;&#8212;&#8201;go up a directory.</p>
+</div>
+<div class="paragraph">
+<p><code>ls</code>   &#8201;&#8212;&#8201;list what is in the directory.</p>
+</div>
+<div class="paragraph">
+<p><code>mkdir</code>&#8201;&#8212;&#8201;make a new directory.</p>
+</div>
+<div class="paragraph">
+<p><code>wget</code> &#8201;&#8212;&#8201;download a file from the internet. Needs to be followed by an html/ftp address.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.bil
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics01.driver
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics02.driver
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics03.driver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type <code>ls</code> after you have done that to see if you&#8217;ve got the files.</p>
+</div>
+</li>
+<li>
+<p>Now type <code>pwd</code>. <strong>THIS TELLS YOU WHERE YOUR DATA IS!</strong> You need to copy this directory! In you terminal, if you highlight the text linux will automatically copy this data</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/linux_highlight.jpg" alt="Highlighted text">
+</div>
+<div class="title">Figure 33. Highlight in a terminal and the highlighted text will be copied to the clipboard.</div>
+</div>
+<div class="paragraph">
+<p>Save that directory somewhere (like  text file) you can find it again later.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_first_basic_analysis">4.2. A first basic analysis</h3>
+<div class="paragraph">
+<p>This first example is extremely simple but it will introduce you to calling <strong>LSDTopoTools</strong> programs.</p>
+</div>
+<div class="paragraph">
+<p>All <strong>LSDTopoTools</strong> programs are called from a terminal window. They read a file, which we call either a <strong>parameter</strong> or <strong>driver</strong> file which tell the program what to do. When you call the program, you need to tell it where this driver file is. You do this by telling the program the directory in which the <strong>driver</strong> file is located, and the name of the <strong>driver</strong> file.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>LSDTopoTools</strong> program we will be using is called <code>LSDTT_BasicMetrics.out</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>We have put this program online. There are three different versions, since it has been compiled for a few different linux environments:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are at Edinburgh, the program is called <code>LSDTT_BasicMetrics.out</code>. It works on Scientific Linux 7.</p>
+</li>
+<li>
+<p>If you are using our vagrant 32 bit ubuntu system, the program is called <code>LSDTT_BasicMetrics_U64.out</code>.</p>
+</li>
+<li>
+<p>If you are using our vagrant 64 bit ubuntu system, the program is called <code>LSDTT_BasicMetrics_U32.out</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Get the version for your operating system. For example, if you are using the Edinburgh servers, get it with:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/LSDTT_BasicMetrics.out</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use <code>ls</code> to make sure this program and all the data you downloaded from the last section is in the same folder.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_the_driver_file_for_the_first_analysis">4.2.1. The driver file for the first analysis</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Before we run the program we need to modify the driver file. The first driver file looks like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-paramfile" data-lang="paramfile"># Parameters for extracting simple surface metrics
+# Comments are preceeded by the hash symbol
+# Documentation can be found here:
+# http://lsdtopotools.github.io/LSDTT_book/#_chi_analysis_part_3_getting_chi_gradients_for_the_entire_landscape
+
+# These are parameters for the file i/o
+# IMPORTANT: You MUST make the write directory: the code will not work if it doens't exist.
+read path: /LSDTopoTools/Topographic_projects/LSDTT_workshop_data
+write path: /LSDTopoTools/Topographic_projects/LSDTT_workshop_data
+read fname: WA
+write fname: WA_FirstExample
+channel heads fname: NULL
+
+# The data that you want printed to file
+write_hillshade: true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Before we run the model, we need to ensure that the <strong>driver</strong> functions point to the correct data. Copy the location of the data by using the <code>pwd</code> command (see last section), and past that in to the</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_the_data_in_linux_2">4.3. Getting the data in linux</h3>
+<div class="paragraph">
+<p>The data for this excercise <a href="https://github.com/LSDtopotools/LSDTT_workshop_data">lives online</a> and you could download it by clicking on it. But we are going to get the data from command line in a linux environment as a gentle introduction.</p>
+</div>
+<div class="paragraph">
+<p>These instructions have been designed for students at the Unviversity of Edinburgh but if you want to try them outside of the Edinburgh computing environment you should <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">read our instructions about how to set up a linux environment on your home computer, regardless of its operating system</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The first thing you need to do is log into a linux server.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>At Edinburgh, the computer labs should all have <a href="http://www.ed.ac.uk/geosciences/intranet/it/linux-servers/nx">nx</a> installed. Use it to log into the GeoScience servers.</p>
+</li>
+<li>
+<p>Outside Edinburgh, you use <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty.exe</a> (windows) or ssh (MacOS or Linux) to get into a <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">vagrant LSDTopoTools box</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you are at Edinburgh, you need to make a terminal window in the <strong>nx</strong> desktop. All you do is <strong>right-click</strong> and select <strong>open terminal window</strong>.</p>
+</li>
+<li>
+<p>To see where you are, type <code>pwd</code> in the command line:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ pwd</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">A very brief overview of linux commands</div>
+<div class="paragraph">
+<p><code>pwd</code>  &#8201;&#8212;&#8201;Tells you what directory you are currently in.</p>
+</div>
+<div class="paragraph">
+<p><code>cd</code>   &#8201;&#8212;&#8201;change directory. You need to give it the directory name.</p>
+</div>
+<div class="paragraph">
+<p><code>cd ..</code>&#8201;&#8212;&#8201;go up a directory.</p>
+</div>
+<div class="paragraph">
+<p><code>ls</code>   &#8201;&#8212;&#8201;list what is in the directory.</p>
+</div>
+<div class="paragraph">
+<p><code>mkdir</code>&#8201;&#8212;&#8201;make a new directory.</p>
+</div>
+<div class="paragraph">
+<p><code>wget</code> &#8201;&#8212;&#8201;download a file from the internet. Needs to be followed by an html/ftp address.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.bil
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics01.driver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type <code>ls</code> after you have done that to see if you&#8217;ve got the files.</p>
+</div>
+</li>
+<li>
+<p>Now type <code>pwd</code>. <strong>THIS TELLS YOU WHERE YOUR DATA IS!</strong> You need to copy this directory! In you terminal, if you highlight the text linux will automatically copy this data</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/linux_highlight.jpg" alt="Highlighted text">
+</div>
+<div class="title">Figure 34. Highlight in a terminal and the highlighted text will be copied to the clipboard.</div>
+</div>
+<div class="paragraph">
+<p>Save that directory somewhere (like  text file) you can find it again later.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_the_data_in_linux_3">4.4. Getting the data in linux</h3>
+<div class="paragraph">
+<p>The data for this excercise <a href="https://github.com/LSDtopotools/LSDTT_workshop_data">lives online</a> and you could download it by clicking on it. But we are going to get the data from command line in a linux environment as a gentle introduction.</p>
+</div>
+<div class="paragraph">
+<p>These instructions have been designed for students at the Unviversity of Edinburgh but if you want to try them outside of the Edinburgh computing environment you should <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">read our instructions about how to set up a linux environment on your home computer, regardless of its operating system</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The first thing you need to do is log into a linux server.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>At Edinburgh, the computer labs should all have <a href="http://www.ed.ac.uk/geosciences/intranet/it/linux-servers/nx">nx</a> installed. Use it to log into the GeoScience servers.</p>
+</li>
+<li>
+<p>Outside Edinburgh, you use <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty.exe</a> (windows) or ssh (MacOS or Linux) to get into a <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">vagrant LSDTopoTools box</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you are at Edinburgh, you need to make a terminal window in the <strong>nx</strong> desktop. All you do is <strong>right-click</strong> and select <strong>open terminal window</strong>.</p>
+</li>
+<li>
+<p>To see where you are, type <code>pwd</code> in the command line:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ pwd</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">A very brief overview of linux commands</div>
+<div class="paragraph">
+<p><code>pwd</code>  &#8201;&#8212;&#8201;Tells you what directory you are currently in.</p>
+</div>
+<div class="paragraph">
+<p><code>cd</code>   &#8201;&#8212;&#8201;change directory. You need to give it the directory name.</p>
+</div>
+<div class="paragraph">
+<p><code>cd ..</code>&#8201;&#8212;&#8201;go up a directory.</p>
+</div>
+<div class="paragraph">
+<p><code>ls</code>   &#8201;&#8212;&#8201;list what is in the directory.</p>
+</div>
+<div class="paragraph">
+<p><code>mkdir</code>&#8201;&#8212;&#8201;make a new directory.</p>
+</div>
+<div class="paragraph">
+<p><code>wget</code> &#8201;&#8212;&#8201;download a file from the internet. Needs to be followed by an html/ftp address.</p>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.bil
+$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics01.driver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Type <code>ls</code> after you have done that to see if you&#8217;ve got the files.</p>
+</div>
+</li>
+<li>
+<p>Now type <code>pwd</code>. <strong>THIS TELLS YOU WHERE YOUR DATA IS!</strong> You need to copy this directory! In you terminal, if you highlight the text linux will automatically copy this data</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/linux_highlight.jpg" alt="Highlighted text">
+</div>
+<div class="title">Figure 35. Highlight in a terminal and the highlighted text will be copied to the clipboard.</div>
+</div>
+<div class="paragraph">
+<p>Save that directory somewhere (like  text file) you can find it again later.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_summary_3">4.5. Summary</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_projections_and_transformations">Appendix A: Projections and transformations</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1244,7 +1604,7 @@ You can also save as a csv file to just get the selected values. If you only wan
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-08 12:47:57 GMT Standard Time
+Last updated 2017-09-27 14:36:21 GMT Daylight Time
 </div>
 </div>
 </body>
