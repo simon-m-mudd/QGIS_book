@@ -481,8 +481,16 @@ MathJax.Hub.Config({
 <li><a href="#_the_driver_file_for_the_first_analysis">4.2.1. The driver file for the first analysis</a></li>
 </ul>
 </li>
-<li><a href="#_getting_the_data_in_linux_2">4.3. Getting the data in linux</a></li>
-<li><a href="#_getting_the_data_in_linux_3">4.4. Getting the data in linux</a></li>
+<li><a href="#_getting_surface_metrics">4.3. Getting surface metrics</a>
+<ul class="sectlevel3">
+<li><a href="#_questions_and_tasks_for_surface_metrics">4.3.1. Questions and tasks for surface metrics</a></li>
+</ul>
+</li>
+<li><a href="#_draniage_area_and_channel_extraction">4.4. Draniage area and channel extraction</a>
+<ul class="sectlevel3">
+<li><a href="#_questions_for_channel_extraction">4.4.1. Questions for channel extraction.</a></li>
+</ul>
+</li>
 <li><a href="#_summary_3">4.5. Summary</a></li>
 </ul>
 </li>
@@ -530,7 +538,7 @@ MathJax.Hub.Config({
 <p>In addition, QGIS now has a large, active and growing user community and if you type in a question about QGIS into a search engine you are almost certain to find a solution to your problem.</p>
 </div>
 <div class="paragraph">
-<p>So, with all of these fantastic resources, why, you ask, am I writing these notes? In short, my students need to do a very specific subset of GIS tasks; these tasks are explined here. Hopefully the result is more efficient then sending many students separately to the myriad of QGIS websites.</p>
+<p>So, with all of these fantastic resources, why, you ask, am I writing these notes? In short, my students need to do a very specific subset of GIS tasks; these tasks are explained here. Hopefully the result is more efficient then sending many students separately to the myriad of QGIS websites.</p>
 </div>
 <div class="sect2">
 <h3 id="_the_qgis_version_used_for_this_book">1.1. The QGIS version used for this book</h3>
@@ -598,7 +606,7 @@ In the above image I have moved the toolbar to display horizontally; any of thes
 <div class="title">Figure 4. The status bar</div>
 </div>
 <div class="paragraph">
-<p>This contains the location of your mouse pointer in the <strong>map canvas</strong>, some information about scale and rotation of your map, and importantly the <a href="https://en.wikipedia.org/wiki/Map_projection">projection</a>. Map projections all have something called an <strong>EPSG</strong> number, so for example the British National Grid is <a href="http://spatialreference.org/ref/epsg/osgb-1936-british-national-grid/">EPSG:27700</a>, the global WGS84 projection is <a href="http://spatialreference.org/ref/epsg/wgs-84/">EPSG:4326</a>, and WGS UTM coordinates for the northernn hemisphere are <strong>EPSG:326XX</strong> where the XX is the zone number, and <strong>EPSG:327XX</strong> is for the southern hemisphere. You can read more on projections in <a href="#_projections_and_transformations">our appendix</a>.</p>
+<p>This contains the location of your mouse pointer in the <strong>map canvas</strong>, some information about scale and rotation of your map, and importantly the <a href="https://en.wikipedia.org/wiki/Map_projection">projection</a>. Map projections all have something called an <strong>EPSG</strong> number, so for example the British National Grid is <a href="http://spatialreference.org/ref/epsg/osgb-1936-british-national-grid/">EPSG:27700</a>, the global WGS84 projection is <a href="http://spatialreference.org/ref/epsg/wgs-84/">EPSG:4326</a>, and WGS UTM coordinates for the northern hemisphere are <strong>EPSG:326XX</strong> where the XX is the zone number, and <strong>EPSG:327XX</strong> is for the southern hemisphere. You can read more on projections in <a href="#_projections_and_transformations">our appendix</a>.</p>
 </div>
 <div class="paragraph">
 <p>Now that you have some idea about what the main QGIS window looks like, it is time to move on and add some data.</p>
@@ -965,7 +973,7 @@ QGIS is a bit picky about the file names when you save the file; you should use 
 <h2 id="_manipulating_vector_data">3. Manipulating vector data</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Occasionaly you will need to adjust vector data, or add data cateogries to your data based on other datasets.</p>
+<p>Occasionally you will need to adjust vector data, or add data categgories to your data based on other datasets.</p>
 </div>
 <div class="sect2">
 <h3 id="_adjusting_point_locations">3.1. Adjusting point locations</h3>
@@ -982,7 +990,7 @@ QGIS is a bit picky about the file names when you save the file; you should use 
 <div class="title">Figure 19. Point data aver drainage area</div>
 </div>
 <div class="paragraph">
-<p>In this image, you can see that the channel point locations are not all on the channel. THis is beacuse the DEM has a pixel size of 5 metres and the error on the GPS unit is greater than 5 metres. Also, in some cases the channel routing algorithms, combined with a noisy DEM, route the channels to the wrong place. In addition, one of these points seems spurious (the one anomolously to the East), so we might remove it from the dataset.</p>
+<p>In this image, you can see that the channel point locations are not all on the channel. THis is because the DEM has a pixel size of 5 metres and the error on the GPS unit is greater than 5 metres. Also, in some cases the channel routing algorithms, combined with a noisy DEM, route the channels to the wrong place. In addition, one of these points seems spurious (the one anomalously to the East), so we might remove it from the dataset.</p>
 </div>
 <div class="paragraph">
 <p>To edit the points, right click on the layer (not the csv file but a vector layer you created in <a href="#_saving_your_imported_data">previous steps</a>) and select "toggle editing":</p>
@@ -1065,7 +1073,7 @@ QGIS is a bit picky about the file names when you save the file; you should use 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If you edited your vector file and deleted a point, it turns out that point is stull there, but has a "NULL" data entry. The extract point tool does not like this one bit. It is very hard to get rid of these points in a shapefile. In a geojson file, you can open the file, delete the point with "null" in the line, and save the file.</p>
+<p>If you edited your vector file and deleted a point, it turns out that point is still there, but has a "NULL" data entry. The extract point tool does not like this one bit. It is very hard to get rid of these points in a shapefile. In a geojson file, you can open the file, delete the point with "null" in the line, and save the file.</p>
 </li>
 <li>
 <p>All of the layers need to be in the same projection. Because raster layers take up a lot of space you should check on your raster&#8217;s projection and then save your vector data in that same projection. Right click on the layer, select "save as" and then on the CRS button select the same projection as your raster.</p>
@@ -1187,7 +1195,7 @@ You can also save as a csv file to just get the selected values. If you only wan
 <h2 id="_an_example_using_data_from_lsdtopotools">4. An example using data from LSDTopoTools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter gives and example of computing some basic rasters and csv data from <a href="http://lsdtopotools.github.io/">LSDTopoTools</a> and then importing it into QGIS. We use this examples of one the the practial excercises in the <a href="http://www.ed.ac.uk/geosciences">University of Edinburgh</a> course, <a href="http://www.drps.ed.ac.uk/17-18/dpt/cxgegr10094.htm">Eroding Landscapes</a>.</p>
+<p>This chapter gives and example of computing some basic raster and csv data from <a href="http://lsdtopotools.github.io/">LSDTopoTools</a> and then importing it into QGIS. We use these examples in of one the practical exercises in the <a href="http://www.ed.ac.uk/geosciences">University of Edinburgh</a> course, <a href="http://www.drps.ed.ac.uk/17-18/dpt/cxgegr10094.htm">Eroding Landscapes</a>.</p>
 </div>
 <div class="paragraph">
 <p>One of the objectives of this exercise is to get you familiar with moving between a linux environment and QGIS,</p>
@@ -1250,7 +1258,7 @@ You can also save as a csv file to just get the selected values. If you only wan
 </div>
 </li>
 <li>
-<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
+<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using <code>wget</code>. Make sure to copy these commands and enter them one line at a time.:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
@@ -1317,7 +1325,15 @@ $ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master
 </div>
 </li>
 <li>
-<p>Use <code>ls</code> to make sure this program and all the data you downloaded from the last section is in the same folder.</p>
+<p>Use <code>ls</code> to make sure this program and all the data you downloaded from the last section is in the same folder. It should look like this:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">smudd@burn practical_02 $ ls
+LSDTT_BasicMetrics.out    WA_BasicMetrics02.driver  WA.bil
+WA_BasicMetrics01.driver  WA_BasicMetrics03.driver  WA.hdr
+smudd@burn practical_02 $</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -1332,7 +1348,7 @@ $ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master
 <pre class="highlight"><code class="language-paramfile" data-lang="paramfile"># Parameters for extracting simple surface metrics
 # Comments are preceeded by the hash symbol
 # Documentation can be found here:
-# http://lsdtopotools.github.io/LSDTT_book/#_chi_analysis_part_3_getting_chi_gradients_for_the_entire_landscape
+# https://simon-m-mudd.github.io/QGIS_book/#_an_example_using_data_from_lsdtopotools
 
 # These are parameters for the file i/o
 # IMPORTANT: You MUST make the write directory: the code will not work if it doens't exist.
@@ -1348,180 +1364,169 @@ write_hillshade: true</code></pre>
 </div>
 </li>
 <li>
-<p>Before we run the model, we need to ensure that the <strong>driver</strong> functions point to the correct data. Copy the location of the data by using the <code>pwd</code> command (see last section), and past that in to the</p>
+<p>You need to be able to edit this file. You should edit it in your host operating system (e.g. not via a terminal or nx, but rather in Windows or MacOS). In the Edinburgh compouter labs there is a text editor called <strong>PSPad</strong>. You can open that program and drag text files into it and edit them. <strong>*Do not use Wordpad or Word!! They insert all kinds of formatting and change the filenames and will, in general, mess everything up!</strong></p>
+</li>
+<li>
+<p>We need to ensure that the <strong>driver</strong> functions point to the correct data. Copy the location of the data by using the <code>pwd</code> command (see last section), and paste that in to these lines (<strong>YOUR DIRECTORY WILL NOT BE THE SAME, USE <code>pwd</code> TO FIND THE CORRECT DIRECTORY</strong>):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-paramfile" data-lang="paramfile">read path: /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02
+write path: /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <strong>must</strong> be a space after the <code>:</code> character.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Now we are going to run the program. We run it in a terminal window like this (make sure you are in the directory with the data):</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ chmod 744 LSDTT_BasicMetrics.out
+$ ./LSDTT_BasicMetrics.out /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02 WA_BasicMetrics01.driver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first command (<code>chmod</code>) is there just to give you permission to execute the program. The second is the actual program call. <strong>You will need to modify the directory to be the one that contains your data!</strong></p>
+</div>
+</li>
+<li>
+<p>If you had all the directory names correct, you will get some text to screen that ends with a statement about hillshading. In fact all this does is print a hillshade of the raster.</p>
+</li>
+<li>
+<p>Open QGIS and load the raster. The new raster is in the same directory with your other data and is called <code>WA_FirstExample_hs.bil</code>. To load raster data in QGIS follow these instructions: <a href="#_adding_raster_data">Adding raster data</a>. The data will look like this:</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/WA_HS.jpg" alt="Whiteadder hillshade">
+</div>
+<div class="title">Figure 34. A hillshade of the Whiteadder catchement</div>
+</div>
+</li>
+<li>
+<p>As you can see, the DEM has quite a few artifacts. There isn&#8217;t much we can do about that, I&#8217;m afraid.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_getting_the_data_in_linux_2">4.3. Getting the data in linux</h3>
+<h3 id="_getting_surface_metrics">4.3. Getting surface metrics</h3>
 <div class="paragraph">
-<p>The data for this excercise <a href="https://github.com/LSDtopotools/LSDTT_workshop_data">lives online</a> and you could download it by clicking on it. But we are going to get the data from command line in a linux environment as a gentle introduction.</p>
-</div>
-<div class="paragraph">
-<p>These instructions have been designed for students at the Unviversity of Edinburgh but if you want to try them outside of the Edinburgh computing environment you should <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">read our instructions about how to set up a linux environment on your home computer, regardless of its operating system</a>.</p>
+<p>Don&#8217;t worry, things are going to get easier. We are going to do essentially the same thing we did in the previous section:
+* First we make sure directories are correct in the <strong>driver</strong> file.
+* Second, we call <code>LSDTT_BasicMetrics.out</code> in the terminal.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first thing you need to do is log into a linux server.</p>
+<p>So, this time change the <code>read path</code> and <code>write path</code> in the file <code>WA_BasicMetrics02.driver</code> to your directory.</p>
+</li>
+<li>
+<p>Run the program:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-console" data-lang="console">$ ./LSDTT_BasicMetrics.out /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02 WA_BasicMetrics02.driver</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>This does more stuff. We can look at the <strong>driver file</strong>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-paramfile" data-lang="paramfile"># Parameters for extracting simple surface metrics
+# Comments are preceded by the hash symbol
+# Documentation can be found here:
+# https://simon-m-mudd.github.io/QGIS_book/#_an_example_using_data_from_lsdtopotools
+
+# These are parameters for the file i/o
+# IMPORTANT: You MUST make the write directory: the code will not work if it doesn't exist.
+read path: /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02
+write path: /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02
+read fname: WA
+write fname: WA_SecondExample
+channel heads fname: NULL
+
+# Parameters for surface metrics
+surface_fitting_radius: 11
+print_slope: true
+print_aspect: true
+print_curvature: true
+print_tangential_curvature: true</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In this case the program is printing <strong>slope</strong>, <strong>aspect</strong>, <strong>curvature</strong>, and <strong>tangential curvature</strong> rasters. They have filenames that reflect their contents so have a look. Slope tells you how steep the landscape is, aspect which direction the surface is pointing, curvature how, uh, curvy the landscape is (mathematically it is how quickly slope changes in space) and the tangential curvature is how curvy the landscape is in the direction of steepest descent. Essentially tangential curvature tells you how tightly curved contours are and is useful for finding valleys.</p>
+</li>
+<li>
+<p>The way these are calculated is by fitting a surface of radius <code>surface_fitting_radius</code> to the points in the DEM and then calculating derivatives of that surface.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_questions_and_tasks_for_surface_metrics">4.3.1. Questions and tasks for surface metrics</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>At Edinburgh, the computer labs should all have <a href="http://www.ed.ac.uk/geosciences/intranet/it/linux-servers/nx">nx</a> installed. Use it to log into the GeoScience servers.</p>
-</li>
-<li>
-<p>Outside Edinburgh, you use <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty.exe</a> (windows) or ssh (MacOS or Linux) to get into a <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">vagrant LSDTopoTools box</a>.</p>
+<p>Try changing the <code>surface_fitting_radius</code>. What happens?</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>If you are at Edinburgh, you need to make a terminal window in the <strong>nx</strong> desktop. All you do is <strong>right-click</strong> and select <strong>open terminal window</strong>.</p>
-</li>
-<li>
-<p>To see where you are, type <code>pwd</code> in the command line:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-console" data-lang="console">$ pwd</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">A very brief overview of linux commands</div>
-<div class="paragraph">
-<p><code>pwd</code>  &#8201;&#8212;&#8201;Tells you what directory you are currently in.</p>
-</div>
-<div class="paragraph">
-<p><code>cd</code>   &#8201;&#8212;&#8201;change directory. You need to give it the directory name.</p>
-</div>
-<div class="paragraph">
-<p><code>cd ..</code>&#8201;&#8212;&#8201;go up a directory.</p>
-</div>
-<div class="paragraph">
-<p><code>ls</code>   &#8201;&#8212;&#8201;list what is in the directory.</p>
-</div>
-<div class="paragraph">
-<p><code>mkdir</code>&#8201;&#8212;&#8201;make a new directory.</p>
-</div>
-<div class="paragraph">
-<p><code>wget</code> &#8201;&#8212;&#8201;download a file from the internet. Needs to be followed by an html/ftp address.</p>
-</div>
-</div>
-</div>
-</li>
-<li>
-<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
-$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.bil
-$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics01.driver</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Type <code>ls</code> after you have done that to see if you&#8217;ve got the files.</p>
-</div>
-</li>
-<li>
-<p>Now type <code>pwd</code>. <strong>THIS TELLS YOU WHERE YOUR DATA IS!</strong> You need to copy this directory! In you terminal, if you highlight the text linux will automatically copy this data</p>
-<div class="imageblock">
-<div class="content">
-<img src="images/linux_highlight.jpg" alt="Highlighted text">
-</div>
-<div class="title">Figure 34. Highlight in a terminal and the highlighted text will be copied to the clipboard.</div>
-</div>
-<div class="paragraph">
-<p>Save that directory somewhere (like  text file) you can find it again later.</p>
-</div>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_getting_the_data_in_linux_3">4.4. Getting the data in linux</h3>
+<h3 id="_draniage_area_and_channel_extraction">4.4. Draniage area and channel extraction</h3>
 <div class="paragraph">
-<p>The data for this excercise <a href="https://github.com/LSDtopotools/LSDTT_workshop_data">lives online</a> and you could download it by clicking on it. But we are going to get the data from command line in a linux environment as a gentle introduction.</p>
-</div>
-<div class="paragraph">
-<p>These instructions have been designed for students at the Unviversity of Edinburgh but if you want to try them outside of the Edinburgh computing environment you should <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">read our instructions about how to set up a linux environment on your home computer, regardless of its operating system</a>.</p>
+<p>Finally, we will compute some drainage areas and extract a channel network. To do this run the <strong>driver file</strong> <code>WA_BasicMetrics03.driver</code>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first thing you need to do is log into a linux server.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>At Edinburgh, the computer labs should all have <a href="http://www.ed.ac.uk/geosciences/intranet/it/linux-servers/nx">nx</a> installed. Use it to log into the GeoScience servers.</p>
+<p>First modify the directories in <code>WA_BasicMetrics03.driver</code>.</p>
 </li>
 <li>
-<p>Outside Edinburgh, you use <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">putty.exe</a> (windows) or ssh (MacOS or Linux) to get into a <a href="http://lsdtopotools.github.io/LSDTT_book/#_installing_lsdtopotools_using_virtualbox_and_vagrant">vagrant LSDTopoTools box</a>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>If you are at Edinburgh, you need to make a terminal window in the <strong>nx</strong> desktop. All you do is <strong>right-click</strong> and select <strong>open terminal window</strong>.</p>
-</li>
-<li>
-<p>To see where you are, type <code>pwd</code> in the command line:</p>
+<p>Run the program:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-console" data-lang="console">$ pwd</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">A very brief overview of linux commands</div>
-<div class="paragraph">
-<p><code>pwd</code>  &#8201;&#8212;&#8201;Tells you what directory you are currently in.</p>
-</div>
-<div class="paragraph">
-<p><code>cd</code>   &#8201;&#8212;&#8201;change directory. You need to give it the directory name.</p>
-</div>
-<div class="paragraph">
-<p><code>cd ..</code>&#8201;&#8212;&#8201;go up a directory.</p>
-</div>
-<div class="paragraph">
-<p><code>ls</code>   &#8201;&#8212;&#8201;list what is in the directory.</p>
-</div>
-<div class="paragraph">
-<p><code>mkdir</code>&#8201;&#8212;&#8201;make a new directory.</p>
-</div>
-<div class="paragraph">
-<p><code>wget</code> &#8201;&#8212;&#8201;download a file from the internet. Needs to be followed by an html/ftp address.</p>
-</div>
+<pre class="highlight"><code class="language-console" data-lang="console">$ ./LSDTT_BasicMetrics.out /home/smudd/courses/Eroding_landscapes/2017/practicals/practical_02 WA_BasicMetrics03.driver</code></pre>
 </div>
 </div>
 </li>
 <li>
-<p>You can use <code>cd</code> and <code>cd ..</code> to move around. When you have found a good place to put your data get it using wget:</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-console" data-lang="console">$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.hdr
-$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA.bil
-$ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master/WA_BasicMetrics01.driver</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Type <code>ls</code> after you have done that to see if you&#8217;ve got the files.</p>
-</div>
+<p>Yet more stuff will come out. Some are drainage area rasters, but there is also a <code>csv</code> file, <code>WA_ThirdExample_CN.csv</code>.</p>
 </li>
 <li>
-<p>Now type <code>pwd</code>. <strong>THIS TELLS YOU WHERE YOUR DATA IS!</strong> You need to copy this directory! In you terminal, if you highlight the text linux will automatically copy this data</p>
+<p>To load this in QGIS, follow the instructions here: <a href="#_import_point_data_from_text_or_spreadsheet">Import point data from text or spreadsheet</a>. You will get something that looks a bit like this:</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/linux_highlight.jpg" alt="Highlighted text">
+<img src="images/WA_CN.jpg" alt="Whiteadder channel network">
 </div>
-<div class="title">Figure 35. Highlight in a terminal and the highlighted text will be copied to the clipboard.</div>
-</div>
-<div class="paragraph">
-<p>Save that directory somewhere (like  text file) you can find it again later.</p>
+<div class="title">Figure 35. A simple channel network</div>
 </div>
 </li>
 </ol>
+</div>
+<div class="sect3">
+<h4 id="_questions_for_channel_extraction">4.4.1. Questions for channel extraction.</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Try changing the <code>threshold_contributing_pixels</code> parameter. What happens to the channel network.</p>
+</li>
+<li>
+<p>More advanced: You can get a smoothed elevation raster with the following <strong>driver file</strong> line: <code>print_smoothed_elevation: true</code>. Try creating a smoothed elevation raster and then using this smoothed raster for the drainage extraction. You will need to change the <code>read fname:</code> parameter to reflect the smoothed raster.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1604,7 +1609,7 @@ $ wget https://raw.githubusercontent.com/LSDtopotools/LSDTT_workshop_data/master
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-27 14:36:21 GMT Daylight Time
+Last updated 2017-09-27 15:43:25 GMT Daylight Time
 </div>
 </div>
 </body>
